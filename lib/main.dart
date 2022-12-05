@@ -16,7 +16,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          appBarTheme: const AppBarTheme(elevation: 0),
+          scaffoldBackgroundColor: ThemeColors.scaffoldColor,
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(color: ThemeColors.primaryText),
+            elevation: 0,
+            color: Colors.white,
+            centerTitle: true,
+          ),
           inputDecorationTheme: InputDecorationTheme(
             contentPadding: const EdgeInsets.all(10),
             border: const OutlineInputBorder(
@@ -35,7 +41,8 @@ class MyApp extends StatelessWidget {
             bodyText1: defaultTextStyle.copyWith(
               fontWeight: FontWeight.bold,
             ),
-            headline6: defaultTextStyle,
+            headline6:
+                defaultTextStyle.copyWith(color: ThemeColors.primaryText),
             headline5: defaultTextStyle.copyWith(
               fontSize: 22,
               fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/common/constants.dart';
+import 'package:flutter_crud/ui/screens/profile/profile.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -57,21 +58,21 @@ class AuthScreen extends StatelessWidget {
               ),
               Flex(
                 direction: Axis.horizontal,
-                children:const [
-                   Flexible(
+                children: const [
+                  Flexible(
                     child: TextField(
                       decoration: InputDecoration(labelText: 'Year'),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: ThemeConstants.themePadding,
                   ),
-                   Flexible(
+                  Flexible(
                     child: TextField(
                       decoration: InputDecoration(labelText: 'Month'),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: ThemeConstants.themePadding,
                   ),
                   Flexible(
@@ -82,19 +83,26 @@ class AuthScreen extends StatelessWidget {
                 ],
               ),
               const _Separator(height: 22),
-              Container(
-                decoration: BoxDecoration(
-                  color: themeData.colorScheme.primary,
-                  borderRadius:
-                      BorderRadius.circular(ThemeConstants.themeBorderRadius),
-                ),
-                width: size.width,
-                height: 50,
-                child: Center(
-                  child: Text(
-                    'register',
-                    style: TextStyle(
-                      color: themeData.colorScheme.onPrimary,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: themeData.colorScheme.primary,
+                    borderRadius:
+                        BorderRadius.circular(ThemeConstants.themeBorderRadius),
+                  ),
+                  width: size.width,
+                  height: 50,
+                  child: Center(
+                    child: Text(
+                      'register',
+                      style: TextStyle(
+                        color: themeData.colorScheme.onPrimary,
+                      ),
                     ),
                   ),
                 ),
