@@ -22,17 +22,66 @@ class AuthScreen extends StatelessWidget {
                 'register',
                 style: themeData.textTheme.headline5,
               ),
-              const _Separator(height: 15,),
-              TextField(),
-              const _Separator(height: 12,),
-              TextField(),
-              const _Separator(height: 12,),
-              TextField(),
-              const _Separator(height: 12,),
-              TextField(),
-              const _Separator(height: 12,),
-              TextField(),
-              const _Separator(height: 25,),
+              const _Separator(
+                height: 15,
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'First Name'),
+              ),
+              const _Separator(
+                height: 12,
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Last Name'),
+              ),
+              const _Separator(
+                height: 12,
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Phone Number'),
+              ),
+              const _Separator(
+                height: 12,
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'E-mail'),
+              ),
+              const _Separator(
+                height: 12,
+              ),
+              const TextField(
+                decoration: InputDecoration(labelText: 'Bank Account Number'),
+              ),
+              const _Separator(
+                height: 25,
+              ),
+              Flex(
+                direction: Axis.horizontal,
+                children:const [
+                   Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(labelText: 'Year'),
+                    ),
+                  ),
+                   SizedBox(
+                    width: ThemeConstants.themePadding,
+                  ),
+                   Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(labelText: 'Month'),
+                    ),
+                  ),
+                   SizedBox(
+                    width: ThemeConstants.themePadding,
+                  ),
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(labelText: 'Day'),
+                    ),
+                  ),
+                ],
+              ),
+              const _Separator(height: 22),
               Container(
                 decoration: BoxDecoration(
                   color: themeData.colorScheme.primary,
@@ -40,7 +89,7 @@ class AuthScreen extends StatelessWidget {
                       BorderRadius.circular(ThemeConstants.themeBorderRadius),
                 ),
                 width: size.width,
-                height: 45,
+                height: 50,
                 child: Center(
                   child: Text(
                     'register',
@@ -49,6 +98,23 @@ class AuthScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              const _Separator(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('have account ?'),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  Text(
+                    'login',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: themeData.colorScheme.primary,
+                    ),
+                  ),
+                ],
               )
             ],
           ),

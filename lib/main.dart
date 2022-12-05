@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crud/common/constants.dart';
 import 'package:flutter_crud/theme/colors.dart';
 import 'package:flutter_crud/ui/screens/root.dart';
 
@@ -16,6 +17,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           appBarTheme: const AppBarTheme(elevation: 0),
+          inputDecorationTheme: InputDecorationTheme(
+            contentPadding: const EdgeInsets.all(10),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 5,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: ThemeColors.border, width: 1),
+              borderRadius:
+                  BorderRadius.circular(ThemeConstants.themeBorderRadius),
+            ),
+          ),
           textTheme: TextTheme(
             bodyText2: defaultTextStyle,
             bodyText1: defaultTextStyle.copyWith(
