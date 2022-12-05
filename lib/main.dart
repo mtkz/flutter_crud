@@ -11,10 +11,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const TextStyle defaultTextStyle = TextStyle(fontFamily: 'avenir');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           appBarTheme: const AppBarTheme(elevation: 0),
+          textTheme: TextTheme(
+            bodyText2: defaultTextStyle,
+            bodyText1: defaultTextStyle.copyWith(fontWeight: FontWeight.bold),
+            headline6: defaultTextStyle,
+          ),
           colorScheme: const ColorScheme.light(
             primary: ThemeColors.primary,
           )),
