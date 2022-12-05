@@ -18,11 +18,18 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(elevation: 0),
           textTheme: TextTheme(
             bodyText2: defaultTextStyle,
-            bodyText1: defaultTextStyle.copyWith(fontWeight: FontWeight.bold),
+            bodyText1: defaultTextStyle.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
             headline6: defaultTextStyle,
+            headline5: defaultTextStyle.copyWith(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           colorScheme: const ColorScheme.light(
             primary: ThemeColors.primary,
+            onPrimary: ThemeColors.onPrimary,
           )),
       home: const RootScreen(),
     );
