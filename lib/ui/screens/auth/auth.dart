@@ -14,6 +14,9 @@ class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -55,14 +58,21 @@ class _AuthScreenState extends State<AuthScreen> {
                 const _Separator(
                   height: 12,
                 ),
-                const TextField(
-                  decoration: InputDecoration(labelText: 'Phone Number'),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: 'Phone Number'),
+                  controller: _phoneNumberController,
+                  validator: (text) => Validator.phoneNumberInputValidator(
+                      _phoneNumberController.text),
                 ),
                 const _Separator(
                   height: 12,
                 ),
-                const TextField(
-                  decoration: InputDecoration(labelText: 'E-mail'),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'E-mail'),
+                  controller: _emailController,
+                  validator: (text) =>
+                      Validator.emailInputValidator(_emailController.text),
                 ),
                 const _Separator(
                   height: 12,
