@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/common/constants.dart';
+import 'package:flutter_crud/data/model/user.dart';
+import 'package:flutter_crud/data/repo/database_repository.dart';
 import 'package:flutter_crud/data/validator/form_validator.dart';
 import 'package:flutter_crud/ui/screens/profile/profile.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -132,11 +135,27 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 const _Separator(height: 22),
                 InkWell(
-                  onTap: () {
+                  onTap: ()  async{
                     if (_formkey.currentState!.validate()) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ));
+                      final repository =
+                          Provider.of<DataBaseRepository<UserEntity>>(context,
+                              listen: false);
+
+                      final user = await repository
+                          .checkUser(int.parse(_phoneNumberController.text));
+                      if (user) {
+                        await repository.register(UserEntity(
+                          _firstNameController.text,
+                          _lastNameController.text,
+                          int.parse(_phoneNumberController.text),
+                          _emailController.text,
+                          int.parse(_bankAccountController.text),
+                        ));
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
+                        ));
+                      }
                     }
                   },
                   child: Container(
