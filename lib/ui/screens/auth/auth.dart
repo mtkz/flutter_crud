@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/common/constants.dart';
+import 'package:flutter_crud/data/validator/form_validator.dart';
 import 'package:flutter_crud/ui/screens/profile/profile.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -15,116 +24,127 @@ class AuthScreen extends StatelessWidget {
         physics: ThemeConstants.themeScrollViewPhysics,
         child: SizedBox(
           height: size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'register',
-                style: themeData.textTheme.headline5,
-              ),
-              const _Separator(
-                height: 15,
-              ),
-              const TextField(
-                decoration: InputDecoration(labelText: 'First Name'),
-              ),
-              const _Separator(
-                height: 12,
-              ),
-              const TextField(
-                decoration: InputDecoration(labelText: 'Last Name'),
-              ),
-              const _Separator(
-                height: 12,
-              ),
-              const TextField(
-                decoration: InputDecoration(labelText: 'Phone Number'),
-              ),
-              const _Separator(
-                height: 12,
-              ),
-              const TextField(
-                decoration: InputDecoration(labelText: 'E-mail'),
-              ),
-              const _Separator(
-                height: 12,
-              ),
-              const TextField(
-                decoration: InputDecoration(labelText: 'Bank Account Number'),
-              ),
-              const _Separator(
-                height: 25,
-              ),
-              Flex(
-                direction: Axis.horizontal,
-                children: const [
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(labelText: 'Year'),
+          child: Form(
+            key: _formkey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'register',
+                  style: themeData.textTheme.headline5,
+                ),
+                const _Separator(
+                  height: 15,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'First Name'),
+                  controller: _firstNameController,
+                  validator: (text) =>
+                      Validator.inputValidator(_firstNameController.text),
+                ),
+                const _Separator(
+                  height: 12,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Last Name'),
+                  controller: _lastNameController,
+                  validator: (text) =>
+                      Validator.inputValidator(_lastNameController.text),
+                ),
+                const _Separator(
+                  height: 12,
+                ),
+                const TextField(
+                  decoration: InputDecoration(labelText: 'Phone Number'),
+                ),
+                const _Separator(
+                  height: 12,
+                ),
+                const TextField(
+                  decoration: InputDecoration(labelText: 'E-mail'),
+                ),
+                const _Separator(
+                  height: 12,
+                ),
+                const TextField(
+                  decoration: InputDecoration(labelText: 'Bank Account Number'),
+                ),
+                const _Separator(
+                  height: 25,
+                ),
+                Flex(
+                  direction: Axis.horizontal,
+                  children: const [
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(labelText: 'Year'),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: ThemeConstants.themePadding,
-                  ),
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(labelText: 'Month'),
+                    SizedBox(
+                      width: ThemeConstants.themePadding,
                     ),
-                  ),
-                  SizedBox(
-                    width: ThemeConstants.themePadding,
-                  ),
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(labelText: 'Day'),
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(labelText: 'Month'),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const _Separator(height: 22),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: themeData.colorScheme.primary,
-                    borderRadius:
-                        BorderRadius.circular(ThemeConstants.themeBorderRadius),
-                  ),
-                  width: size.width,
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      'register',
-                      style: TextStyle(
-                        color: themeData.colorScheme.onPrimary,
+                    SizedBox(
+                      width: ThemeConstants.themePadding,
+                    ),
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(labelText: 'Day'),
+                      ),
+                    ),
+                  ],
+                ),
+                const _Separator(height: 22),
+                InkWell(
+                  onTap: () {
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ));
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: themeData.colorScheme.primary,
+                      borderRadius: BorderRadius.circular(
+                          ThemeConstants.themeBorderRadius),
+                    ),
+                    width: size.width,
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        'register',
+                        style: TextStyle(
+                          color: themeData.colorScheme.onPrimary,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const _Separator(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('have account ?'),
-                  const SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    'login',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: themeData.colorScheme.primary,
+                const _Separator(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('have account ?'),
+                    const SizedBox(
+                      width: 6,
                     ),
-                  ),
-                ],
-              )
-            ],
+                    Text(
+                      'login',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: themeData.colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
