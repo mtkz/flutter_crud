@@ -13,17 +13,17 @@ class AuthScreen extends StatefulWidget {
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _bankAccountController = TextEditingController();
-  final TextEditingController _yearController = TextEditingController();
-  final TextEditingController _monthController = TextEditingController();
-  final TextEditingController _dayController = TextEditingController();
+final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+final TextEditingController _firstNameController = TextEditingController();
+final TextEditingController _lastNameController = TextEditingController();
+final TextEditingController _phoneNumberController = TextEditingController();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _bankAccountController = TextEditingController();
+final TextEditingController _yearController = TextEditingController();
+final TextEditingController _monthController = TextEditingController();
+final TextEditingController _dayController = TextEditingController();
 
+class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -135,27 +135,20 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 const _Separator(height: 22),
                 InkWell(
-                  onTap: ()  async{
+                  onTap: () async {
                     if (_formkey.currentState!.validate()) {
-                      final repository =
-                          Provider.of<DataBaseRepository<UserEntity>>(context,
-                              listen: false);
-
-                      final user = await repository
-                          .checkUser(int.parse(_phoneNumberController.text));
-                      if (user) {
-                        await repository.register(UserEntity(
-                          _firstNameController.text,
-                          _lastNameController.text,
-                          int.parse(_phoneNumberController.text),
-                          _emailController.text,
-                          int.parse(_bankAccountController.text),
+                      await _onTap(context).then((value) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileScreen(),
+                          ),
+                        );
+                      }).onError((error, stackTrace) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('user is exists'),
                         ));
-
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ProfileScreen(),
-                        ));
-                      }
+                      });
                     }
                   },
                   child: Container(
@@ -199,6 +192,29 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       ),
     );
+  }
+}
+
+Future<void> _onTap(context) async {
+  final repository =
+      Provider.of<DataBaseRepository<UserEntity>>(context, listen: false);
+
+  final userExists =
+      await repository.checkUser(int.parse(_phoneNumberController.text));
+  try {
+    if (!userExists) {
+      await repository.register(UserEntity(
+        _firstNameController.text,
+        _lastNameController.text,
+        int.parse(_phoneNumberController.text),
+        _emailController.text,
+        int.parse(_bankAccountController.text),
+      ));
+    } else {
+      throw Exception('user allready exists');
+    }
+  } catch (e) {
+    throw Exception('error occured');
   }
 }
 

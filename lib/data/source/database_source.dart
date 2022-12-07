@@ -20,9 +20,9 @@ class DataBaseSource implements IDataBaseSource<UserEntity> {
 
   @override
   Future<bool> checkUser(int phoneNumber) async {
-    final user =
-        box.values.firstWhereOrNull((element) => element.phoneNumber == phoneNumber );
-    if (user != null) {
+    final user = box.values
+        .firstWhereOrNull((element) => element.phoneNumber == phoneNumber);
+    if (user == null) {
       return false;
     }
     return true;
