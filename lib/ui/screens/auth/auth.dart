@@ -16,6 +16,10 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _bankAccountController = TextEditingController();
+  final TextEditingController _yearController = TextEditingController();
+  final TextEditingController _monthController = TextEditingController();
+  final TextEditingController _dayController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -77,34 +81,51 @@ class _AuthScreenState extends State<AuthScreen> {
                 const _Separator(
                   height: 12,
                 ),
-                const TextField(
-                  decoration: InputDecoration(labelText: 'Bank Account Number'),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration:
+                      const InputDecoration(labelText: 'Bank Account Number'),
+                  controller: _bankAccountController,
+                  validator: (text) =>
+                      Validator.inputValidator(_bankAccountController.text),
                 ),
                 const _Separator(
                   height: 25,
                 ),
                 Flex(
                   direction: Axis.horizontal,
-                  children: const [
+                  children: [
                     Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(labelText: 'Year'),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: _yearController,
+                        decoration: const InputDecoration(labelText: 'Year'),
+                        validator: (text) =>
+                            Validator.inputValidator(_yearController.text),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: ThemeConstants.themePadding,
                     ),
                     Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(labelText: 'Month'),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(labelText: 'Month'),
+                        controller: _monthController,
+                        validator: (text) =>
+                            Validator.inputValidator(_monthController.text),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: ThemeConstants.themePadding,
                     ),
                     Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(labelText: 'Day'),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(labelText: 'Day'),
+                        controller: _dayController,
+                        validator: (text) =>
+                            Validator.inputValidator(_dayController.text),
                       ),
                     ),
                   ],
