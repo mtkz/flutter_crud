@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/common/constants.dart';
+import 'package:flutter_crud/data/model/user.dart';
 import 'package:flutter_crud/theme/colors.dart';
 import 'package:flutter_crud/ui/screens/root.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+const String boxname = 'users';
+
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter<UserEntity>(UserEntityAdapter());
+  await Hive.openBox<UserEntity>(boxname);
   runApp(const MyApp());
 }
 
