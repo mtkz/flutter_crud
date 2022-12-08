@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 
 abstract class IDataBaseSource<T> {
   Future<T> register(UserEntity user);
-  Future<bool> checkUser(int phoneNumber);
+  Future<bool> checkUser(String email);
 }
 
 class DataBaseSource implements IDataBaseSource<UserEntity> {
@@ -19,9 +19,9 @@ class DataBaseSource implements IDataBaseSource<UserEntity> {
   }
 
   @override
-  Future<bool> checkUser(int phoneNumber) async {
+  Future<bool> checkUser(String email) async {
     final user = box.values
-        .firstWhereOrNull((element) => element.phoneNumber == phoneNumber);
+        .firstWhereOrNull((element) => element.email == email);
     if (user == null) {
       return false;
     }

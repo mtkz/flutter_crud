@@ -23,8 +23,8 @@ class DataBaseRepository<T> extends ChangeNotifier implements IDataBaseSource {
   }
 
   @override
-  Future<bool> checkUser(int phoneNumber) {
-    return dataBaseSource.checkUser(phoneNumber);
+  Future<bool> checkUser(String email) {
+    return dataBaseSource.checkUser(email);
   }
 
   Future<UserEntity> _persisAuthinfo(UserEntity user) async {
@@ -37,6 +37,14 @@ class DataBaseRepository<T> extends ChangeNotifier implements IDataBaseSource {
     loadAuthIfo();
     return user;
   }
+
+  Future<void> signout() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    authChangeNotifier.value = null;
+  }
+
 
   Future<void> loadAuthIfo() async {
     final SharedPreferences sharedPreferences =

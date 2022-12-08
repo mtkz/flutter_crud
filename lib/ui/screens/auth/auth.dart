@@ -200,8 +200,7 @@ Future<void> _onTap(context) async {
   final repository =
       Provider.of<DataBaseRepository<UserEntity>>(context, listen: false);
 
-  final userExists =
-      await repository.checkUser(int.parse(_phoneNumberController.text));
+  final userExists = await repository.checkUser(_emailController.text);
   try {
     if (!userExists) {
       await repository.register(UserEntity(

@@ -15,6 +15,12 @@ class UserEntity {
   final String email;
   @HiveField(4)
   final int bankAccountNumber;
+  @HiveField(5)
+  final int year;
+  @HiveField(6)
+  final int month;
+  @HiveField(7)
+  final int day;
 
   UserEntity(
     this.firstName,
@@ -22,5 +28,8 @@ class UserEntity {
     this.phoneNumber,
     this.email,
     this.bankAccountNumber,
+    this.year,
+    this.month,
+    this.day,
   );
 }

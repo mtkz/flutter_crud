@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/common/constants.dart';
 import 'package:flutter_crud/data/model/auth_info.dart';
+import 'package:flutter_crud/data/model/user.dart';
 import 'package:flutter_crud/data/repo/database_repository.dart';
+import 'package:flutter_crud/ui/screens/auth/auth.dart';
+import 'package:flutter_crud/ui/screens/root.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -41,58 +45,48 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          borderRadius: BorderRadius.circular(
-                              ThemeConstants.themeBorderRadius),
-                          boxShadow: [
-                            BoxShadow(
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(.1))
-                          ]),
-                      width: size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.all(
-                          ThemeConstants.themePadding,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Edit Profile'),
-                            Icon(Icons.arrow_forward_ios_rounded)
-                          ],
-                        ),
-                      )),
                   const SizedBox(
                     height: 12,
                   ),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          borderRadius: BorderRadius.circular(
-                              ThemeConstants.themeBorderRadius),
-                          boxShadow: [
-                            BoxShadow(
-                                blurRadius: 6,
-                                color: Colors.black.withOpacity(.1))
-                          ]),
-                      width: size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.all(
-                          ThemeConstants.themePadding,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Logout',
-                              style: TextStyle(color: Color(0xfff44336)),
-                            ),
-                            Icon(Icons.arrow_forward_ios_rounded)
-                          ],
-                        ),
-                      ))
+                  InkWell(
+                    onTap: () async {
+                      final repository =
+                          Provider.of<DataBaseRepository<UserEntity>>(context,
+                              listen: false);
+
+                      await repository.signout();
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                        return const RootScreen();
+                      }));
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            borderRadius: BorderRadius.circular(
+                                ThemeConstants.themeBorderRadius),
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 6,
+                                  color: Colors.black.withOpacity(.1))
+                            ]),
+                        width: size.width,
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                            ThemeConstants.themePadding,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                'Logout',
+                                style: TextStyle(color: Color(0xfff44336)),
+                              ),
+                              Icon(Icons.arrow_forward_ios_rounded)
+                            ],
+                          ),
+                        )),
+                  )
                 ],
               ),
             ),
