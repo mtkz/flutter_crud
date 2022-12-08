@@ -43,6 +43,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Text(value.email),
                   const SizedBox(
+                    height: 10,
+                  ),
+                  Text("${value.year} ${value.month} ${value.day}"),
+                  const SizedBox(
                     height: 20,
                   ),
                   const SizedBox(
@@ -53,12 +57,11 @@ class ProfileScreen extends StatelessWidget {
                       final repository =
                           Provider.of<DataBaseRepository<UserEntity>>(context,
                               listen: false);
-
-                      await repository.signout();
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
                         return const RootScreen();
                       }));
+                      repository.signout();
                     },
                     child: Container(
                         decoration: BoxDecoration(

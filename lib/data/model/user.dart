@@ -22,14 +22,14 @@ class UserEntity {
   @HiveField(7)
   final int day;
 
-  UserEntity(
-    this.firstName,
-    this.lastName,
-    this.phoneNumber,
-    this.email,
-    this.bankAccountNumber,
-    this.year,
-    this.month,
-    this.day,
-  );
+  UserEntity({
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
+    required this.email,
+    required this.bankAccountNumber,
+    required this.year,
+    required this.month,
+    required this.day,
+  });
 }

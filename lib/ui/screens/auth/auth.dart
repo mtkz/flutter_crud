@@ -204,11 +204,14 @@ Future<void> _onTap(context) async {
   try {
     if (!userExists) {
       await repository.register(UserEntity(
-        _firstNameController.text,
-        _lastNameController.text,
-        int.parse(_phoneNumberController.text),
-        _emailController.text,
-        int.parse(_bankAccountController.text),
+        firstName: _firstNameController.text,
+        lastName: _lastNameController.text,
+        phoneNumber: int.parse(_phoneNumberController.text),
+        email: _emailController.text,
+        bankAccountNumber: int.parse(_bankAccountController.text),
+        year: int.parse(_yearController.text),
+        month: int.parse(_monthController.text),
+        day: int.parse(_dayController.text),
       ));
     } else {
       throw Exception('user allready exists');

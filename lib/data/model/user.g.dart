@@ -17,14 +17,14 @@ class UserEntityAdapter extends TypeAdapter<UserEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserEntity(
-      fields[0] as String,
-      fields[1] as String,
-      fields[2] as int,
-      fields[3] as String,
-      fields[4] as int,
-      fields[5] as int,
-      fields[6] as int,
-      fields[7] as int,
+      firstName: fields[0] as String,
+      lastName: fields[1] as String,
+      phoneNumber: fields[2] as int,
+      email: fields[3] as String,
+      bankAccountNumber: fields[4] as int,
+      year: fields[5] as int,
+      month: fields[6] as int,
+      day: fields[7] as int,
     );
   }
 

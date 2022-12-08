@@ -34,6 +34,9 @@ class DataBaseRepository<T> extends ChangeNotifier implements IDataBaseSource {
     sharedPreferences.setInt('phoneNumber', user.phoneNumber);
     sharedPreferences.setString('email', user.email);
     sharedPreferences.setInt('bankAccountNumber', user.bankAccountNumber);
+    sharedPreferences.setInt('year', user.year);
+    sharedPreferences.setInt('month', user.month);
+    sharedPreferences.setInt('day', user.day);
     loadAuthIfo();
     return user;
   }
@@ -45,7 +48,6 @@ class DataBaseRepository<T> extends ChangeNotifier implements IDataBaseSource {
     authChangeNotifier.value = null;
   }
 
-
   Future<void> loadAuthIfo() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
@@ -54,15 +56,22 @@ class DataBaseRepository<T> extends ChangeNotifier implements IDataBaseSource {
     final int phoneNumber = sharedPreferences.getInt('phoneNumber') ?? 0;
     final int bankAccountNumber =
         sharedPreferences.getInt('bankAccountNumber') ?? 0;
+    final int year = sharedPreferences.getInt('year') ?? 0;
+    final int month = sharedPreferences.getInt('month') ?? 0;
+    final int day = sharedPreferences.getInt('day') ?? 0;
     final String email = sharedPreferences.getString('email') ?? '';
 
     if (email.isNotEmpty) {
       authChangeNotifier.value = AuthInfo(
-          firstName: firstname,
-          lastName: lastname,
-          phoneNumber: phoneNumber,
-          email: email,
-          bankAccountNumber: bankAccountNumber);
+        firstName: firstname,
+        lastName: lastname,
+        phoneNumber: phoneNumber,
+        email: email,
+        bankAccountNumber: bankAccountNumber,
+        year: year,
+        month: month,
+        day: day,
+      );
     }
   }
 }
