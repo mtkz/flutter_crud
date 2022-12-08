@@ -21,4 +21,12 @@ class Validator {
     }
     return "Email Not Valid";
   }
+
+
+   static String? birthInputValidator(String text , int length) {
+    if (text.length != length) {
+      return "Must be $length Character";
+    }
+    return null;
+  }
 }

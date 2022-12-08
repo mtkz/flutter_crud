@@ -76,6 +76,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: 12,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(labelText: 'E-mail'),
                   controller: _emailController,
                   validator: (text) =>
@@ -103,8 +104,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         keyboardType: TextInputType.number,
                         controller: _yearController,
                         decoration: const InputDecoration(labelText: 'Year'),
-                        validator: (text) =>
-                            Validator.inputValidator(_yearController.text),
+                        validator: (text) => Validator.birthInputValidator(
+                            _yearController.text, 4),
                       ),
                     ),
                     const SizedBox(
@@ -115,8 +116,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(labelText: 'Month'),
                         controller: _monthController,
-                        validator: (text) =>
-                            Validator.inputValidator(_monthController.text),
+                        validator: (text) => Validator.birthInputValidator(
+                            _monthController.text, 2),
                       ),
                     ),
                     const SizedBox(
@@ -127,8 +128,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(labelText: 'Day'),
                         controller: _dayController,
-                        validator: (text) =>
-                            Validator.inputValidator(_dayController.text),
+                        validator: (text) => Validator.birthInputValidator(
+                            _dayController.text, 2),
                       ),
                     ),
                   ],

@@ -4,6 +4,7 @@ import 'package:flutter_crud/data/model/user.dart';
 import 'package:flutter_crud/data/repo/database_repository.dart';
 import 'package:flutter_crud/data/source/database_source.dart';
 import 'package:flutter_crud/theme/colors.dart';
+import 'package:flutter_crud/ui/screens/profile/profile.dart';
 import 'package:flutter_crud/ui/screens/root.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,9 +12,11 @@ import 'package:provider/provider.dart';
 const String boxname = 'users';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter<UserEntity>(UserEntityAdapter());
   await Hive.openBox<UserEntity>(boxname);
+  await databaseRepository.loadAuthIfo();
   runApp(ChangeNotifierProvider<DataBaseRepository<UserEntity>>(
     create: (BuildContext context) =>
         DataBaseRepository<UserEntity>(DataBaseSource(Hive.box(boxname))),
@@ -66,7 +69,9 @@ class MyApp extends StatelessWidget {
             primary: ThemeColors.primary,
             onPrimary: ThemeColors.onPrimary,
           )),
-      home: const RootScreen(),
+      home: DataBaseRepository.authChangeNotifier.value == null
+          ? const RootScreen()
+          : const ProfileScreen(),
     );
   }
 }
